@@ -1,0 +1,7 @@
+# TODO
+Shapes: 
+   Fix circle pixels overdraw. Can be done by using additional buffer for xS that counts minimally used X for specific line.
+Font: 
+   Implement string reading/iterating function with support of &rtl; and &ltr; sequences. Can be done by implementing a string iterator with a buffer saving unicode characters when direction inversion sequence is met, unti the closing direction sequence.
+Easy abstraction:
+   Special widget made exactly for quick and simple abstractions without need to register additional class

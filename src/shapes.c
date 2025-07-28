@@ -43,17 +43,8 @@ void lxg_draw_circle_quart(LXGDrawCtx* ctx, int x, int y, int radius, int rot, i
 
 void lxg_draw_rectangle(LXGDrawCtx* ctx, int x1, int y1, int x2, int y2, int color) {
    if (!ctx->setter) return;
-   int tmp; 
-   if (x2 < x1) { 
-      tmp = x2;
-      x2 = x1;
-      x1 = tmp;
-   }
-   if (y2 < y1) {
-      tmp = y2;
-      y2 = y1;
-      y1 = tmp;
-   }
+   int_swap_minmax(&x1, &x2);
+   int_swap_minmax(&y1, &y2);
    
    if (x1 < ctx->x1) x1 = ctx->x1;
    if (x2 > ctx->x2) x2 = ctx->x2;
@@ -69,5 +60,34 @@ void lxg_draw_rectangle(LXGDrawCtx* ctx, int x1, int y1, int x2, int y2, int col
 
 void lxg_draw_line(LXGDrawCtx* ctx, int x1, int y1, int x2, int y2, int color) {
    if (!ctx->setter) return;
-   TODO("Implement lxg_draw_line");
+   int_swap_minmax(&x1, &x2);
+   int_swap_minmax(&y1, &y2);
+   
+   int xDiff = x2 - x1;
+   int yDiff = y2 - y1;
+   if (xDiff == 0) lxg_draw_rectangle(ctx, x1, y1, x1 + 1, y2, color);
+   else if (yDiff == 0) lxg_draw_rectangle(ctx, x1, y1, x2, y1 + 1, color);
+   else {
+      int steps = int_min(xDiff, yDiff);
+      int xStep = xDiff / steps;
+      int yStep = yDiff / steps;
+      int cX = x1;
+      int cY = y1;
+      int lastStep = steps - 1;
+      for (int step = 0; step < steps; step ++) {
+         int nX;
+         int nY;
+         if (step == lastStep) {
+            nX = x2;
+            nY = y2;
+         }
+         else {
+            nX = cX + xStep;
+            nY = cY + yStep;
+         }
+         lxg_draw_rectangle(ctx, cX, cY, nX, nY, color);
+         cX = nX;
+         cY = nY;
+      }
+   }
 }

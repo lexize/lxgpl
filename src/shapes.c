@@ -1,5 +1,4 @@
 #include "shapes.h"
-#include "misc.h"
 
 void lxg_draw_circle(LXGDrawCtx* ctx, int x, int y, int radius, int color, bool fill) {
    if (!ctx->setter) return;
@@ -88,6 +87,60 @@ void lxg_draw_line(LXGDrawCtx* ctx, int x1, int y1, int x2, int y2, int color) {
          lxg_draw_rectangle(ctx, cX, cY, nX, nY, color);
          cX = nX;
          cY = nY;
+      }
+   }
+}
+
+bool __lxg_is_on_rhs(Vec2I a, Vec2I b, Vec2I p) {
+   Vec2I relP = {
+      .x = p.x - a.x,
+      .y = p.y - a.y
+   };
+   Vec2I relDir = {
+      .x = b.x - a.x,
+      .y = b.y - a.y
+   };
+   return vec2i_dot_product(relP, vec2i_perpendicular(relDir)) > 0;
+}
+
+void lxg_draw_triangle(LXGDrawCtx* ctx, Vec2I a, Vec2I b, Vec2I c, int color) {
+   int canvasX1 = int_min(int_min(a.x, b.x), c.x);
+   int canvasX2 = int_max(int_max(a.x, b.x), c.x);
+   int canvasY1 = int_min(int_min(a.y, b.y), c.y);
+   int canvasY2 = int_max(int_max(a.y, b.y), c.y);
+   for (int y = canvasY1; y < canvasY2; y++) {
+      for (int x = canvasX1; x < canvasX2; x++) {
+         Vec2I p = {.x = x, .y = y};
+         if (__lxg_is_on_rhs(a, b, p) &&
+             __lxg_is_on_rhs(b, c, p) &&
+             __lxg_is_on_rhs(c, a, p)) {
+            ctx->setter(ctx->userdata, x, y, color);
+         }         
+      }
+   }
+}
+
+
+void lxg_draw_triangle_textured(LXGTrianglePainter* ctx, Vec2I a, Vec2I b, Vec2I c) {
+   int canvasX1 = int_min(int_min(a.x, b.x), c.x);
+   int canvasX2 = int_max(int_max(a.x, b.x), c.x);
+   int canvasY1 = int_min(int_min(a.y, b.y), c.y);
+   int canvasY2 = int_max(int_max(a.y, b.y), c.y);
+   size_t triangle_area = vec2i_triangle_area(a, b, c);
+   for (int y = canvasY1; y < canvasY2; y++) {
+      for (int x = canvasX1; x < canvasX2; x++) {
+         Vec2I p = {.x = x, .y = y};
+         if (__lxg_is_on_rhs(a, b, p) &&
+             __lxg_is_on_rhs(b, c, p) &&
+             __lxg_is_on_rhs(c, a, p)) {
+            size_t abArea = vec2i_triangle_area(a, b, p);
+            size_t bcArea = vec2i_triangle_area(a, b, p);
+            size_t caArea = triangle_area - (abArea + bcArea);
+            uint16_t aPower = (uint16_t)(65535 - ((bcArea * 65535) / triangle_area));
+            uint16_t bPower = (uint16_t)(65535 - ((caArea * 65535) / triangle_area));
+            uint16_t cPower = (uint16_t)(65535 - ((abArea * 65535) / triangle_area));
+            ctx->paint(ctx->userdata, x, y, aPower, bPower, cPower);
+         }         
       }
    }
 }

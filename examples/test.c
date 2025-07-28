@@ -46,6 +46,11 @@ int main() {
    lxg_panel_set_padding(panel, 1, 1, 1, 1);
 
    lxg_widget_render(ctx, &panel_widget);
+   Vec2I tA = {.x = 0, .y = 0};
+   Vec2I tB = {.x = 50, .y = 50};
+   Vec2I tC = {.x = 100, .y = 25};
+   lxg_draw_rectangle(ctx, 0, 0, 100, 50, 0xFF0000FF);
+   lxg_draw_triangle(ctx, tA, tB, tC, 0xFFFF00FF);
 
    rgba_to_ppm(canvas, 300, 300);
    canvas_free(canvas);

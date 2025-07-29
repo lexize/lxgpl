@@ -57,5 +57,5 @@ libs/liblxgui.a: $(CORELIB) $(WIDGETS)
 build/examples_test.o: examples/test.c
 	${CC} ${CFLAGS} -o build/examples_test.o -c examples/test.c
 
-examples/test: libs/liblxgui.a build/examples_test.o
-	${CC} ${CFLAGS} -O build/examples_test.o -L${PWD}/libs -l:liblxgui.a -o examples/test 
+build/test: libs/liblxgui.a build/examples_test.o
+	${CC} ${CFLAGS} -O build/examples_test.o -L${PWD}/libs -l:liblxgui.a -o build/test 

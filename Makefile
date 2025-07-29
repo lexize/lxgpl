@@ -1,4 +1,4 @@
-CFLAGS ?= -Wall -Wno-unused-parameter -Wno-incompatible-pointer-types -Wextra -Isrc/ -I/usr/include/freetype2/ -lfreetype -ggdb -fPIC
+CFLAGS ?= -Wall -Wno-unused-parameter -Wno-incompatible-pointer-types -Wextra -Isrc/ -I/usr/include/freetype2/ -lfreetype -lm -ggdb -fPIC
 
 CC ?= gcc
 

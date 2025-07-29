@@ -48,3 +48,7 @@ int vec2i_triangle_area(Vec2I a, Vec2I b, Vec2I c) {
    Vec2I abPerp = vec2i_perpendicular(ab);
    return vec2i_dot_product(ac, abPerp) / 2;
 }
+
+bool vec2i_eq(Vec2I a, Vec2I b) {
+   return a.x == b.x && a.y == b.y;
+}

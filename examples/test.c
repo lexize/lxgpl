@@ -20,6 +20,18 @@ void rgba_to_ppm(Canvas* data, int width, int height) {
    }
 }
 
+void draw_triangle_uv(LXGDrawCtx* ctx, int x, int y, uint16_t pA, uint16_t pB, uint16_t pC) {
+   ABGR abgr = {
+      .a = 255,
+      .r = (uint8_t)(pA >> 8),
+      .g = (uint8_t)(pB >> 8),
+      .b = (uint8_t)(pC >> 8),
+   };
+   ARGB argb = *(ARGB*)(&abgr);
+   int color = argb_to_int(argb);
+   ctx->setter(ctx->userdata, x, y, color);
+}
+
 int main() {
    lxg_font_init();
    lxg_init();
@@ -47,10 +59,16 @@ int main() {
 
    lxg_widget_render(ctx, &panel_widget);
    Vec2I tA = {.x = 0, .y = 0};
-   Vec2I tB = {.x = 50, .y = 50};
-   Vec2I tC = {.x = 100, .y = 25};
-   lxg_draw_rectangle(ctx, 0, 0, 100, 50, 0xFF0000FF);
-   lxg_draw_triangle(ctx, tA, tB, tC, 0xFFFF00FF);
+   Vec2I tB = {.x = 0, .y = 50};
+   Vec2I tC = {.x = 50, .y = 50};
+   Vec2I tD = {.x = 50, .y = 0};
+   lxg_draw_rectangle(ctx, 0, 0, 50, 50, 0xFFAAAAFF);
+   LXGTrianglePainter painter = {
+      .userdata = ctx,
+      .paint = draw_triangle_uv
+   };
+   lxg_draw_triangle_textured(&painter, tA, tB, tC);
+   lxg_draw_triangle_textured(&painter, tC, tD, tA);
 
    rgba_to_ppm(canvas, 300, 300);
    canvas_free(canvas);

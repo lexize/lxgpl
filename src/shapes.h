@@ -1,7 +1,8 @@
 #include "drawing_context.h"
 #include <stdbool.h>
 #include <stddef.h>
-#include "math_utils.h" /* Vec2I struct, int_* funcs, vec2i_* funcs */
+#include "math_utils.h"
+#include "vectors.h"
 
 #ifndef __LXGUI_SHAPES
 #define __LXGUI_SHAPES

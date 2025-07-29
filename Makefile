@@ -34,13 +34,16 @@ build/colors.o: src/colors.c src/colors.h
 build/math_utils.o: src/math_utils.c src/math_utils.h
 	${CC} ${CFLAGS} -o build/math_utils.o -c src/math_utils.c
 
+build/vectors.o: src/vectors.c src/vectors.h
+	${CC} ${CFLAGS} -o build/vectors.o -c src/vectors.c
+
 build/widgets_panel.o: src/widgets/panel.c src/widgets/panel.h
 	${CC} ${CFLAGS} -o build/widgets_panel.o -c src/widgets/panel.c
 
 build/widgets_label.o: src/widgets/label.c src/widgets/label.h
 	${CC} ${CFLAGS} -o build/widgets_label.o -c src/widgets/label.c
 
-CORELIB = build/canvas.o build/drawing_context.o build/font.o build/gui.o build/hashmap.o build/shapes.o build/string_builder.o build/string_hashmap.o build/colors.o build/math_utils.o
+CORELIB = build/canvas.o build/drawing_context.o build/font.o build/gui.o build/hashmap.o build/shapes.o build/string_builder.o build/string_hashmap.o build/colors.o build/math_utils.o build/vectors.o
 WIDGETS = build/widgets_panel.o build/widgets_label.o
 
 libs/liblxgui.so: $(CORELIB) $(WIDGETS)

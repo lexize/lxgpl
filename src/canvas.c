@@ -54,7 +54,7 @@ LXGCanvas* lxg_canvas_new(unsigned int width, unsigned int height, LXGCanvasColo
 }
 
 int lxg_canvas_get_pixel(LXGCanvas* canvas, int x, int y) {
-   if (x < 0 || y < 0 || x >= canvas->height || y >= canvas->height) return 0;
+   if (x < 0 || y < 0 || x >= canvas->width || y >= canvas->height) return 0;
    int pix_base = (y * canvas->width) + x;
    int pixel = lxg_canvas_pixel_pointer(pix_base, canvas->mode);
    void* p = canvas->data + pixel;
@@ -101,7 +101,7 @@ int lxg_canvas_get_pixel(LXGCanvas* canvas, int x, int y) {
 }
 
 void lxg_canvas_set_pixel(LXGCanvas* canvas, int x, int y, int color) {
-   if (x < 0 || y < 0 || x >= canvas->height || y >= canvas->height) return;
+   if (x < 0 || y < 0 || x >= canvas->width || y >= canvas->height) return;
    ARGB a = int_to_argb(lxg_canvas_get_pixel(canvas, x, y));
    ARGB b = int_to_argb(color);
    ARGB result = argb_blend(a, b);

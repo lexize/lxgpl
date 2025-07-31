@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifndef __LXGUI_CANVAS
-#define __LXGUI_CANVAS
+#ifndef __LXG_CANVAS
+#define __LXG_CANVAS
 
 typedef enum {
    LXG_CANVAS_ARGB = 0,
@@ -58,11 +58,37 @@ void lxg_canvas_set_pixel(LXGCanvas* canvas, int x, int y, int color);
 
 void lxg_canvas_free(LXGCanvas* canvas);
 
-#ifdef  LXGUI_STRIP_PREFIX
+#ifdef  LXG_STRIP_PREFIX
+#define CANVAS_ARGB             LXG_CANVAS_ARGB,
+#define CANVAS_ABGR             LXG_CANVAS_ABGR
+#define CANVAS_RGBA             LXG_CANVAS_RGBA
+#define CANVAS_BGRA             LXG_CANVAS_BGRA
+#define CANVAS_RGB              LXG_CANVAS_RGB
+#define CANVAS_BGR              LXG_CANVAS_BGR
+#define CANVAS_GRAY             LXG_CANVAS_GRAY
+#define CANVAS_GRAY_OPAQUE      LXG_CANVAS_GRAY_OPAQUE
+#define CANVAS_GRAY_TRANSPARENT LXG_CANVAS_GRAY_TRANSPARENT
+#define CANVAS_MONO             LXG_CANVAS_MONO
+
 #define Canvas LXGCanvas
 #define canvas_new lxg_canvas_new
 #define canvas_create_context lxg_canvas_create_context
+#define canvas_setup_context lxg_canvas_setup_context
 #define canvas_free lxg_canvas_free
-#endif//LXGUI_STRIP_PREFIX
+#define canvas_get_pixel lxg_canvas_get_pixel
+#define canvas_set_pixel lxg_canvas_set_pixel
 
-#endif//__LXGUI_CANVAS
+#define Stencil LXGStencil
+#define stencil_new lxg_stencil_new
+#define stencil_create_context lxg_stencil_create_context
+
+#define DrawProxy LXGDrawProxy
+#define draw_proxy_new lxg_draw_proxy_new
+#define draw_proxy_create_context
+#define draw_proxy_setup_context
+
+#define 
+
+#endif//LXG_STRIP_PREFIX
+
+#endif//__LXG_CANVAS

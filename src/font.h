@@ -64,4 +64,30 @@ bool lxg_set_font_size(LXGFont* font, int font_size);
 
 void lxg_render_freetype_glyph(LXGDrawCtx* dctx, FT_GlyphSlot glyph, int x, int y, int color);
 
+#ifdef LXG_STRIP_PREFIX
+#define TextDimensions LXGTextDimensions
+#define Font LXGFont
+#define TextPenContext LXGTextPenContext
+
+#define font_load lxg_font_load
+#define get_str_dimensions lxg_get_str_dimensions
+#define get_str_dimensions_buf lxg_get_str_dimensions_buf
+#define get_str_dimensions_ex lxg_get_str_dimensions_ex
+
+#define render_text lxg_render_text
+#define render_text_buf lxg_render_text_buf
+#define render_text_ex lxg_render_text_ex
+
+#define read_unicode lxg_read_unicode
+#define font_has_kerning lxg_font_has_kerning
+
+#define font_get_char_index lxg_font_get_char_index
+#define font_get_glyph lxg_font_get_glyph
+#define font_get_kerning lxg_font_get_kerning
+#define get_baseline_height lxg_get_baseline_height
+#define set_font_size lxg_set_font_size
+
+#define render_freetype_glyph lxg_render_freetype_glyph
+#endif
+
 #endif

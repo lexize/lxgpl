@@ -37,6 +37,13 @@ Vec2I vec2i_div(Vec2I a, Vec2I b) {
    return vec2i(a.x / b.x, a.y / b.y);
 }
 
+Vec2I vec2i_lerp(Vec2I a, Vec2I b, uint16_t t) {
+   const Vec2I div = {65535, 65535};
+   Vec2I mul = {t, t};
+   Vec2I diff = vec2i_sub(b, a);
+   return vec2i_add(a, vec2i_div(vec2i_mul(diff, mul), div));
+}
+
 Vec2L vec2l_add(Vec2L a, Vec2L b) {
    return vec2l(a.x + b.x, a.y + b.y);
 }
@@ -51,6 +58,13 @@ Vec2L vec2l_mul(Vec2L a, Vec2L b) {
 
 Vec2L vec2l_div(Vec2L a, Vec2L b) {
    return vec2l(a.x / b.x, a.y / b.y);
+}
+
+Vec2L vec2l_lerp(Vec2L a, Vec2L b, uint16_t t) {
+   const Vec2L div = {65535, 65535};
+   Vec2L mul = {t, t};
+   Vec2L diff = vec2l_sub(b, a);
+   return vec2l_add(a, vec2l_div(vec2l_mul(diff, mul), div));
 }
 
 Vec2F vec2f_add(Vec2F a, Vec2F b) {
@@ -69,6 +83,12 @@ Vec2F vec2f_div(Vec2F a, Vec2F b) {
    return vec2f(a.x / b.x, a.y / b.y);
 }
 
+Vec2F vec2f_lerp(Vec2F a, Vec2F b, float t) {
+   Vec2F mul = {t, t};
+   Vec2F dif = vec2f_sub(b, a);
+   return vec2f_add(a, vec2f_mul(dif, mul));
+}
+
 Vec2D vec2d_add(Vec2D a, Vec2D b) {
    return vec2d(a.x + b.x, a.y + b.y);
 }
@@ -83,6 +103,12 @@ Vec2D vec2d_mul(Vec2D a, Vec2D b) {
 
 Vec2D vec2d_div(Vec2D a, Vec2D b) {
    return vec2d(a.x / b.x, a.y / b.y);
+}
+
+Vec2D vec2d_lerp(Vec2D a, Vec2D b, double t) {
+   Vec2D mul = {t, t};
+   Vec2D dif = vec2d_sub(b, a);
+   return vec2d_add(a, vec2d_mul(dif, mul));
 }
 
 int vec2i_dot_product(Vec2I a, Vec2I b) {

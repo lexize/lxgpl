@@ -36,21 +36,25 @@ Vec2I vec2i_add(Vec2I a, Vec2I b);
 Vec2I vec2i_sub(Vec2I a, Vec2I b);
 Vec2I vec2i_mul(Vec2I a, Vec2I b);
 Vec2I vec2i_div(Vec2I a, Vec2I b);
+Vec2I vec2i_lerp(Vec2I a, Vec2I b, uint16_t t);
 
 Vec2L vec2l_add(Vec2L a, Vec2L b);
 Vec2L vec2l_sub(Vec2L a, Vec2L b);
 Vec2L vec2l_mul(Vec2L a, Vec2L b);
 Vec2L vec2l_div(Vec2L a, Vec2L b);
+Vec2L vec2l_lerp(Vec2L a, Vec2L b, uint16_t t);
 
 Vec2F vec2f_add(Vec2F a, Vec2F b);
 Vec2F vec2f_sub(Vec2F a, Vec2F b);
 Vec2F vec2f_mul(Vec2F a, Vec2F b);
 Vec2F vec2f_div(Vec2F a, Vec2F b);
+Vec2F vec2f_lerp(Vec2F a, Vec2F b, float t);
 
 Vec2D vec2d_add(Vec2D a, Vec2D b);
 Vec2D vec2d_sub(Vec2D a, Vec2D b);
 Vec2D vec2d_mul(Vec2D a, Vec2D b);
 Vec2D vec2d_div(Vec2D a, Vec2D b);
+Vec2D vec2d_lerp(Vec2D a, Vec2D b, double t);
 
 int vec2i_dot_product(Vec2I a, Vec2I b);
 Vec2I vec2i_perpendicular(Vec2I vec);

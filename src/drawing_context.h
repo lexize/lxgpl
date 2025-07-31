@@ -1,5 +1,5 @@
-#ifndef __LXGUI_DRAW_CTX
-#define __LXGUI_DRAW_CTX
+#ifndef __LXG_DRAW_CTX
+#define __LXG_DRAW_CTX
 
 typedef void (LXGDrawCtxSetter)(void* userdata, int x, int y, int rgba);
 typedef int (LXGDrawCtxGetter)(void* userdata, int x, int y);
@@ -18,11 +18,11 @@ void lxg_draw_ctx_set_pixel(LXGDrawCtx* ctx, int x, int y, int rgba);
 
 int lxg_draw_ctx_get_pixel(LXGDrawCtx* ctx, int x, int y);
 
-#ifdef  LXGUI_STRIP_PREFIX
+#ifdef  LXG_STRIP_PREFIX
 #define DrawCtx LXGDrawCtx
 #define DrawCtxExecutor LXGDrawCtxExecutor
 #define draw_ctx_set_pixel lxg_draw_ctx_set_pixel
 #define draw_ctx_get_pixel lxg_draw_ctx_get_pixel
-#endif//LXGUI_STRIP_PREFIX
+#endif//LXG_STRIP_PREFIX
 
-#endif//__LXGUI_DRAW_CTX
+#endif//__LXG_DRAW_CTX

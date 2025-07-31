@@ -60,5 +60,10 @@ libs/liblxgui.a: $(CORELIB) $(WIDGETS)
 build/examples_test.o: examples/test.c
 	${CC} ${CFLAGS} -o build/examples_test.o -c examples/test.c
 
+build/sdl_test.o: examples/sdl.c
+	${CC} ${CFLAGS} -o build/sdl_test.o -c examples/sdl.c
+
 build/test: libs/liblxgui.a build/examples_test.o
-	${CC} ${CFLAGS} -O build/examples_test.o -L${PWD}/libs -l:liblxgui.a -o build/test 
+	${CC} ${CFLAGS} -O build/examples_test.o -L${PWD}/libs -l:liblxgui.a -o build/test
+build/sdl_test: libs/liblxgui.a build/sdl_test.o
+	${CC} ${CFLAGS} -lSDL3 -O build/sdl_test.o -L${PWD}/libs -l:liblxgui.a -o build/sdl_test

@@ -9,6 +9,7 @@
 #include "gui.h"
 #include "widgets/panel.h"
 #include "widgets/label.h"
+#include "curves.h"
 
 void rgba_to_ppm(Canvas* data, int width, int height) {
    printf("P3 %d %d 255", width, height);
@@ -69,6 +70,20 @@ int main() {
    };
    lxg_draw_triangle_textured(&painter, tA, tB, tC);
    lxg_draw_triangle_textured(&painter, tC, tD, tA);
+   Vec2F tAF = {0,   0};
+   Vec2F tBF = {0,   50.f};
+   Vec2F tCF = {50.f, 50.f};
+   Vec2F tDF = {50.f, 0};
+   Vec2F prevP = tAF;
+   for (int i = 0; i < 10; i++) {
+      float t = i / 9.f;
+      Vec2F p = cubic_bezier_point_vec2f(tAF, tBF, tCF, tDF, t);
+      Vec2I p1 = {(int)prevP.x, (int)prevP.y};
+      Vec2I p2 = {(int)p.x, (int)p.y};
+      lxg_draw_line(ctx, p1.x, p1.y, p2.x, p2.y, 0xFFFFAAFF);
+      lxg_draw_circle(ctx, p2.x, p2.y, 3, 0xFFFFAAFF, true);
+      prevP = p;
+   }
 
    rgba_to_ppm(canvas, 300, 300);
    canvas_free(canvas);

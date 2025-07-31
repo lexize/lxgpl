@@ -142,6 +142,10 @@ float vec2f_triangle_area(Vec2F a, Vec2F b, Vec2F c) {
    return vec2f_dot_product(ac, abPerp) / 2;
 }
 
+float vec2f_length(Vec2F a) {
+   return sqrtf(powf(a.x, 2.f) + powf(a.y, 2.f));
+}
+
 bool vec2f_eq(Vec2F a, Vec2F b) {
    return vec2_eq(a, b);
 }
@@ -159,6 +163,10 @@ double vec2d_triangle_area(Vec2D a, Vec2D b, Vec2D c) {
    Vec2D ab = vec2d_sub(b, a);
    Vec2D abPerp = vec2d_perpendicular(ab);
    return vec2d_dot_product(ac, abPerp) / 2;
+}
+
+double vec2d_length(Vec2D a) {
+   return sqrt(pow(a.x, 2.) + pow(a.y, 2.));
 }
 
 bool vec2d_eq(Vec2D a, Vec2D b) {

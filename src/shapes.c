@@ -59,15 +59,15 @@ void lxg_draw_rectangle(LXGDrawCtx* ctx, int x1, int y1, int x2, int y2, int col
 
 void lxg_draw_line(LXGDrawCtx* ctx, int x1, int y1, int x2, int y2, int color) {
    if (!ctx->setter) return;
-   int_swap_minmax(&x1, &x2);
-   int_swap_minmax(&y1, &y2);
-   
+ 
    int xDiff = x2 - x1;
    int yDiff = y2 - y1;
+   int width = abs(xDiff);
+   int height = abs(yDiff);
    if (xDiff == 0) lxg_draw_rectangle(ctx, x1, y1, x1 + 1, y2, color);
    else if (yDiff == 0) lxg_draw_rectangle(ctx, x1, y1, x2, y1 + 1, color);
    else {
-      int steps = int_min(xDiff, yDiff);
+      int steps = int_min(width, height);
       int xStep = xDiff / steps;
       int yStep = yDiff / steps;
       int cX = x1;

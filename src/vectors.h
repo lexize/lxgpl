@@ -1,5 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
+#include <stdlib.h>
+#include <math.h>
 #ifndef VECTORS_H
 #define VECTORS_H
 
@@ -40,6 +42,16 @@ Vec2L vec2l_sub(Vec2L a, Vec2L b);
 Vec2L vec2l_mul(Vec2L a, Vec2L b);
 Vec2L vec2l_div(Vec2L a, Vec2L b);
 
+Vec2F vec2f_add(Vec2F a, Vec2F b);
+Vec2F vec2f_sub(Vec2F a, Vec2F b);
+Vec2F vec2f_mul(Vec2F a, Vec2F b);
+Vec2F vec2f_div(Vec2F a, Vec2F b);
+
+Vec2D vec2d_add(Vec2D a, Vec2D b);
+Vec2D vec2d_sub(Vec2D a, Vec2D b);
+Vec2D vec2d_mul(Vec2D a, Vec2D b);
+Vec2D vec2d_div(Vec2D a, Vec2D b);
+
 int vec2i_dot_product(Vec2I a, Vec2I b);
 Vec2I vec2i_perpendicular(Vec2I vec);
 int vec2i_triangle_area(Vec2I a, Vec2I b, Vec2I c);
@@ -53,10 +65,12 @@ bool vec2l_eq(Vec2L a, Vec2L b);
 float vec2f_dot_product(Vec2F a, Vec2F b);
 Vec2F vec2f_perpendicular(Vec2F vec);
 float vec2f_triangle_area(Vec2F a, Vec2F b, Vec2F c);
+float vec2f_length(Vec2F a);
 bool vec2f_eq(Vec2F a, Vec2F b);
 
 double vec2d_dot_product(Vec2D a, Vec2D b);
 Vec2D vec2d_perpendicular(Vec2D vec);
 double vec2d_triangle_area(Vec2D a, Vec2D b, Vec2D c);
+double vec2d_length(Vec2D a);
 bool vec2d_eq(Vec2D a, Vec2D b);
 #endif

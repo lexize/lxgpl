@@ -1,4 +1,7 @@
-CFLAGS ?= -Wall -Wno-unused-parameter -Wno-incompatible-pointer-types -Wextra -Isrc/ -I/usr/include/freetype2/ -lfreetype -lm -ggdb -fPIC
+FREETYPE_FLAGS = -I/usr/include/freetype2 -lfreetype
+LUA_FLAGS = -I/usr/local/include -l:liblua.a
+THIRDPARTY_FLAGS = -Ithirdparty
+CFLAGS ?= -Wall -Wno-unused-parameter -Wno-incompatible-pointer-types -Wextra -Isrc/ ${FREETYPE_FLAGS} ${LUA_FLAGS} ${THIRDPARTY_FLAGS} -lm -ggdb -fPIC
 
 CC ?= gcc
 
@@ -40,13 +43,19 @@ build/vectors.o: src/vectors.c src/vectors.h
 build/curves.o: src/curves.c src/curves.h
 	${CC} ${CFLAGS} -o build/curves.o -c src/curves.c
 
+build/matrices.o: src/matrices.c src/matrices.h
+	${CC} ${CFLAGS} -o build/matrices.o -c src/matrices.c
+
+build/cgltf.o: src/cgltf.c
+	${CC} ${CFLAGS} -o build/cgltf.o -c src/cgltf.c
+
 build/widgets_panel.o: src/widgets/panel.c src/widgets/panel.h
 	${CC} ${CFLAGS} -o build/widgets_panel.o -c src/widgets/panel.c
 
 build/widgets_label.o: src/widgets/label.c src/widgets/label.h
 	${CC} ${CFLAGS} -o build/widgets_label.o -c src/widgets/label.c
 
-CORELIB = build/canvas.o build/drawing_context.o build/font.o build/gui.o build/hashmap.o build/shapes.o build/string_builder.o build/string_hashmap.o build/colors.o build/math_utils.o build/vectors.o build/curves.o
+CORELIB = build/canvas.o build/drawing_context.o build/font.o build/gui.o build/hashmap.o build/shapes.o build/string_builder.o build/string_hashmap.o build/colors.o build/math_utils.o build/vectors.o build/curves.o build/matrices.o
 WIDGETS = build/widgets_panel.o build/widgets_label.o
 
 libs/liblxgui.so: $(CORELIB) $(WIDGETS)

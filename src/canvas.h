@@ -87,8 +87,6 @@ void lxg_canvas_free(LXGCanvas* canvas);
 #define draw_proxy_create_context
 #define draw_proxy_setup_context
 
-#define 
-
 #endif//LXG_STRIP_PREFIX
 
 #endif//__LXG_CANVAS

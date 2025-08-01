@@ -1,4 +1,5 @@
 #include "vectors.h"
+#include "matrices.h"
 #include <math.h>
 #include <stdbool.h>
 #ifndef CURVES_H

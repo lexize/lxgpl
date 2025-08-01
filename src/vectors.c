@@ -20,6 +20,60 @@ Vec2D vec2d(double x, double y) {
    return vec;
 }
 
+Vec3I vec3i(int x, int y, int z) {
+   Vec3I vec = {x, y, z};
+   return vec;
+}
+
+Vec3L vec3l(long x, long y, long z) {
+   Vec3L vec = {x, y, z};
+   return vec;
+}
+
+Vec3F vec3f(float x, float y, float z) {
+   Vec3F vec = {x, y, z};
+   return vec;
+}
+
+Vec3D vec3d(double x, double y, double z) {
+   Vec3D vec = {x, y, z};
+   return vec;
+}
+
+Vec4I vec4i(int x, int y, int z, int w) {
+   Vec4I vec = {x, y, z, w};
+   return vec;
+}
+
+Vec4L vec4l(long x, long y, long z, long w) {
+   Vec4L vec = {x, y, z, w};
+   return vec;
+}
+
+Vec4F vec4f(float x, float y, float z, float w) {
+   Vec4F vec = {x, y, z, w};
+   return vec;
+}
+
+Vec4D vec4d(double x, double y, double z, double w) {
+   Vec4D vec = {x, y, z, w};
+   return vec;
+}
+
+Vec2I vec2in(int x) {return vec2i(x, x);}
+Vec2L vec2ln(long x) {return vec2l(x, x);}
+Vec2F vec2fn(float x) {return vec2f(x, x);}
+Vec2D vec2dn(double x) {return vec2d(x, x);}
+
+Vec3I vec3in(int x) {return vec3i(x, x, x);}
+Vec3L vec3ln(long x) {return vec3l(x, x, x);}
+Vec3F vec3fn(float x) {return vec3f(x, x, x);}
+Vec3D vec3dn(double x) {return vec3d(x, x, x);}
+
+Vec4I vec4in(int x) {return vec4i(x, x, x, x);}
+Vec4L vec4ln(long x) {return vec4l(x, x, x, x);}
+Vec4F vec4fn(float x) {return vec4f(x, x, x, x);}
+Vec4D vec4dn(double x) {return vec4d(x, x, x, x);}
 
 Vec2I vec2i_add(Vec2I a, Vec2I b) {
    return vec2i(a.x + b.x, a.y + b.y);
@@ -109,6 +163,186 @@ Vec2D vec2d_lerp(Vec2D a, Vec2D b, double t) {
    Vec2D mul = {t, t};
    Vec2D dif = vec2d_sub(b, a);
    return vec2d_add(a, vec2d_mul(dif, mul));
+}
+
+Vec3I vec3i_add(Vec3I a, Vec3I b) {
+   return vec3i(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+Vec3I vec3i_sub(Vec3I a, Vec3I b) {
+   return vec3i(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+Vec3I vec3i_mul(Vec3I a, Vec3I b) {
+   return vec3i(a.x * b.x, a.y * b.y, a.z * b.z);
+}
+
+Vec3I vec3i_div(Vec3I a, Vec3I b) {
+   return vec3i(a.x / b.x, a.y / b.y, a.z / b.z);
+}
+
+Vec3I vec3i_lerp(Vec3I a, Vec3I b, uint16_t t) {
+   const Vec3I div = {65535, 65535, 65535};
+   Vec3I mul = {t, t, t};
+   Vec3I diff = vec3i_sub(b, a);
+   return vec3i_add(a, vec3i_div(vec3i_mul(diff, mul), div));
+}
+
+Vec3L vec3l_add(Vec3L a, Vec3L b) {
+   return vec3l(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+Vec3L vec3l_sub(Vec3L a, Vec3L b) {
+   return vec3l(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+Vec3L vec3l_mul(Vec3L a, Vec3L b) {
+   return vec3l(a.x * b.x, a.y * b.y, a.z * b.z);
+}
+
+Vec3L vec3l_div(Vec3L a, Vec3L b) {
+   return vec3l(a.x / b.x, a.y / b.y, a.z / b.z);
+}
+
+Vec3L vec3l_lerp(Vec3L a, Vec3L b, uint16_t t) {
+   const Vec3L div = {65535, 65535, 65535};
+   Vec3L mul = {t, t, t};
+   Vec3L diff = vec3l_sub(b, a);
+   return vec3l_add(a, vec3l_div(vec3l_mul(diff, mul), div));
+}
+
+Vec3F vec3f_add(Vec3F a, Vec3F b) {
+   return vec3f(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+Vec3F vec3f_sub(Vec3F a, Vec3F b) {
+   return vec3f(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+Vec3F vec3f_mul(Vec3F a, Vec3F b) {
+   return vec3f(a.x * b.x, a.y * b.y, a.z * b.z);
+}
+
+Vec3F vec3f_div(Vec3F a, Vec3F b) {
+   return vec3f(a.x / b.x, a.y / b.y, a.z / b.z);
+}
+
+Vec3F vec3f_lerp(Vec3F a, Vec3F b, float t) {
+   Vec3F mul = {t, t, t};
+   Vec3F dif = vec3f_sub(b, a);
+   return vec3f_add(a, vec3f_mul(dif, mul));
+}
+
+Vec3D vec3d_add(Vec3D a, Vec3D b) {
+   return vec3d(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+Vec3D vec3d_sub(Vec3D a, Vec3D b) {
+   return vec3d(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+Vec3D vec3d_mul(Vec3D a, Vec3D b) {
+   return vec3d(a.x * b.x, a.y * b.y, a.z * b.z);
+}
+
+Vec3D vec3d_div(Vec3D a, Vec3D b) {
+   return vec3d(a.x / b.x, a.y / b.y, a.z / b.z);
+}
+
+Vec3D vec3d_lerp(Vec3D a, Vec3D b, double t) {
+   Vec3D mul = {t, t, t};
+   Vec3D dif = vec3d_sub(b, a);
+   return vec3d_add(a, vec3d_mul(dif, mul));
+}
+
+Vec4I vec4i_add(Vec4I a, Vec4I b) {
+   return vec4i(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+}
+
+Vec4I vec4i_sub(Vec4I a, Vec4I b) {
+   return vec4i(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+}
+
+Vec4I vec4i_mul(Vec4I a, Vec4I b) {
+   return vec4i(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
+}
+
+Vec4I vec4i_div(Vec4I a, Vec4I b) {
+   return vec4i(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
+}
+
+Vec4I vec4i_lerp(Vec4I a, Vec4I b, uint16_t t) {
+   const Vec4I div = {65535, 65535, 65535, 65535};
+   Vec4I mul = {t, t, t, t};
+   Vec4I diff = vec4i_sub(b, a);
+   return vec4i_add(a, vec4i_div(vec4i_mul(diff, mul), div));
+}
+
+Vec4L vec4l_add(Vec4L a, Vec4L b) {
+   return vec4l(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+}
+
+Vec4L vec4l_sub(Vec4L a, Vec4L b) {
+   return vec4l(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+}
+
+Vec4L vec4l_mul(Vec4L a, Vec4L b) {
+   return vec4l(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
+}
+
+Vec4L vec4l_div(Vec4L a, Vec4L b) {
+   return vec4l(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
+}
+
+Vec4L vec4l_lerp(Vec4L a, Vec4L b, uint16_t t) {
+   const Vec4L div = {65535, 65535, 65535, 65535};
+   Vec4L mul = {t, t, t, t};
+   Vec4L diff = vec4l_sub(b, a);
+   return vec4l_add(a, vec4l_div(vec4l_mul(diff, mul), div));
+}
+
+Vec4F vec4f_add(Vec4F a, Vec4F b) {
+   return vec4f(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+}
+
+Vec4F vec4f_sub(Vec4F a, Vec4F b) {
+   return vec4f(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+}
+
+Vec4F vec4f_mul(Vec4F a, Vec4F b) {
+   return vec4f(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
+}
+
+Vec4F vec4f_div(Vec4F a, Vec4F b) {
+   return vec4f(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
+}
+
+Vec4F vec4f_lerp(Vec4F a, Vec4F b, float t) {
+   Vec4F mul = {t, t, t, t};
+   Vec4F dif = vec4f_sub(b, a);
+   return vec4f_add(a, vec4f_mul(dif, mul));
+}
+
+Vec4D vec4d_add(Vec4D a, Vec4D b) {
+   return vec4d(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+}
+
+Vec4D vec4d_sub(Vec4D a, Vec4D b) {
+   return vec4d(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+}
+
+Vec4D vec4d_mul(Vec4D a, Vec4D b) {
+   return vec4d(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
+}
+
+Vec4D vec4d_div(Vec4D a, Vec4D b) {
+   return vec4d(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
+}
+
+Vec4D vec4d_lerp(Vec4D a, Vec4D b, double t) {
+   Vec4D mul = {t, t, t, t};
+   Vec4D dif = vec4d_sub(b, a);
+   return vec4d_add(a, vec4d_mul(dif, mul));
 }
 
 int vec2i_dot_product(Vec2I a, Vec2I b) {

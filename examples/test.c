@@ -1,4 +1,4 @@
-#define LXGUI_STRIP_PREFIX
+#define LXG_STRIP_PREFIX
 
 #include "canvas.h"
 #include "shapes.h"

@@ -21,6 +21,13 @@ typedef struct {
    Vec4F r4;
 } Mat4F;
 
+typedef enum {
+   MAT_COMPONENT_X = 0,
+   MAT_COMPONENT_Y = 1,
+   MAT_COMPONENT_Z = 2,
+   MAT_COMPONENT_W = 3
+} MatComponent;
+
 Mat2F mat2f_identity();
 Mat3F mat3f_identity();
 Mat4F mat4f_identity();
@@ -32,5 +39,28 @@ Mat4F mat4f_mul(Mat4F a, Mat4F b);
 Vec2F mat2f_mul_vec(Vec2F a, Mat2F b);
 Vec3F mat3f_mul_vec(Vec3F a, Mat3F b);
 Vec4F mat4f_mul_vec(Vec4F a, Mat4F b);
+
+Mat2F mat2f_transpose(Mat2F mat);
+Mat3F mat3f_transpose(Mat3F mat);
+Mat4F mat4f_transpose(Mat4F mat);
+
+float mat2f_get(Mat2F* mat, MatComponent row, MatComponent column);
+float mat3f_get(Mat3F* mat, MatComponent row, MatComponent column);
+float mat4f_get(Mat4F* mat, MatComponent row, MatComponent column);
+
+void mat2f_set(Mat2F* mat, float val, MatComponent row, MatComponent column);
+void mat3f_set(Mat3F* mat, float val, MatComponent row, MatComponent column);
+void mat4f_set(Mat4F* mat, float val, MatComponent row, MatComponent column);
+
+float mat2f_determinant(Mat2F mat);
+float mat3f_determinant(Mat3F mat);
+float mat4f_determinant(Mat4F mat);
+
+Mat2F mat3f_without_intersect(Mat3F mat, MatComponent row, MatComponent column);
+Mat3F mat4f_without_intersect(Mat4F mat, MatComponent row, MatComponent column);
+
+Mat2F mat2f_inverse(Mat2F mat);
+Mat3F mat3f_inverse(Mat3F mat);
+Mat4F mat4f_inverse(Mat4F mat);
 
 #endif

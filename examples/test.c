@@ -34,6 +34,14 @@ void draw_triangle_uv(LXGDrawCtx* ctx, int x, int y, uint16_t pA, uint16_t pB, u
 }
 
 int main() {
+   Mat4F a = {
+      {3, 0,  0, 0},
+      {0, 2,  0, 0},
+      {0, 0,  1, 0},
+      {0, 0,  0, 4}
+   };
+   Mat4F aInv = mat4f_inverse(a);
+   Mat4F b = mat4f_mul(aInv, a);
    lxg_font_init();
    lxg_init();
    lxg_init_panel_widget();
@@ -74,15 +82,15 @@ int main() {
    Vec2F tBF = {0,   50.f};
    Vec2F tCF = {50.f, 50.f};
    Vec2F tDF = {50.f, 0};
-   Vec2F prevP = tAF;
+   Vec2I prevP = {0, 0};
    for (int i = 0; i < 10; i++) {
       float t = i / 9.f;
       Vec2F p = cubic_bezier_point_vec2f(tAF, tBF, tCF, tDF, t);
-      Vec2I p1 = {(int)prevP.x, (int)prevP.y};
-      Vec2I p2 = {(int)p.x, (int)p.y};
+      Vec2I p1 = prevP;
+      Vec2I p2 = {(int)roundf(p.x), (int)roundf(p.y)};
       lxg_draw_line(ctx, p1.x, p1.y, p2.x, p2.y, 0xFFFFAAFF);
       lxg_draw_circle(ctx, p2.x, p2.y, 3, 0xFFFFAAFF, true);
-      prevP = p;
+      prevP = p2;
    }
 
    rgba_to_ppm(canvas, 300, 300);

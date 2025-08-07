@@ -1,14 +1,16 @@
+#include "matrices.h"
+
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-typedef struct Transform Transform;
+typedef struct LXGTransform LXGTransform;
 
-struct Transform {
+struct LXGTransform {
    Vec3F position;
    Vec3F rotation;
    Vec3F scale;
 };
 
-Mat4F lxg_transform_get_matrix(Transform transform);
+Mat4F lxg_transform_get_matrix(LXGTransform transform);
 
 #endif

@@ -63,4 +63,14 @@ Mat2F mat2f_inverse(Mat2F mat);
 Mat3F mat3f_inverse(Mat3F mat);
 Mat4F mat4f_inverse(Mat4F mat);
 
+Mat4F mat4f_rotate_x(float degrees);
+Mat4F mat4f_rotate_y(float degrees);
+Mat4F mat4f_rotate_z(float degrees);
+
+Mat4F mat4f_scale(float x, float y, float z);
+Mat4F mat4f_translate(float x, float y, float z);
+
+Mat4F mat4f_look(Vec3F cameraPosition, Vec3F cameraTarget, Vec3F cameraUp);
+Mat4F mat4f_perspective(float fovDegrees, float aspectRatio, float near, float far);
+
 #endif

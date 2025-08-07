@@ -13,3 +13,5 @@
 #include "string_hashmap.h"
 #include "string_utils.h"
 #include "vectors.h"
+#include "matrices.h"
+#include "glutils.h"

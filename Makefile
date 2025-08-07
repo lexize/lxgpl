@@ -1,11 +1,14 @@
 FREETYPE_FLAGS = -I/usr/include/freetype2 -lfreetype
 LUA_FLAGS = -I/usr/local/include -l:liblua.a
 THIRDPARTY_FLAGS = -Ithirdparty
-CFLAGS ?= -Wall -Wno-unused-parameter -Wno-incompatible-pointer-types -Wextra -Isrc/ ${FREETYPE_FLAGS} ${LUA_FLAGS} ${THIRDPARTY_FLAGS} -lm -ggdb -fPIC
+GL = -lGL -lEGL
+CFLAGS ?= -Wall -Wno-unused-parameter -Wno-incompatible-pointer-types -Wextra -Isrc/ ${FREETYPE_FLAGS} ${LUA_FLAGS} ${THIRDPARTY_FLAGS} ${GL} -lm -ggdb -fPIC
 
 CC ?= gcc
 
 AR ?= ar
+
+INSTALL_PREFIX ?= /usr
 
 build/canvas.o: src/canvas.c src/canvas.h
 	${CC} ${CFLAGS} -o build/canvas.o -c src/canvas.c
@@ -46,8 +49,18 @@ build/curves.o: src/curves.c src/curves.h
 build/matrices.o: src/matrices.c src/matrices.h
 	${CC} ${CFLAGS} -o build/matrices.o -c src/matrices.c
 
+build/mesh.o: src/mesh.c src/mesh.h
+	${CC} ${CFLAGS} -o build/mesh.o -c src/mesh.c
+
+build/transform.o: src/transform.c src/transform.h
+	${CC} ${CFLAGS} -o build/transform.o -c src/transform.c
+
 build/cgltf.o: src/cgltf.c
 	${CC} ${CFLAGS} -o build/cgltf.o -c src/cgltf.c
+build/stb_image.o: src/stb_image.c
+	${CC} ${CFLAGS} -o build/stb_image.o -c src/stb_image.c
+build/glutils.o: src/glutils.c src/glutils.h
+	${CC} ${CFLAGS} -o build/glutils.o -c src/glutils.c
 
 build/widgets_panel.o: src/widgets/panel.c src/widgets/panel.h
 	${CC} ${CFLAGS} -o build/widgets_panel.o -c src/widgets/panel.c
@@ -55,16 +68,26 @@ build/widgets_panel.o: src/widgets/panel.c src/widgets/panel.h
 build/widgets_label.o: src/widgets/label.c src/widgets/label.h
 	${CC} ${CFLAGS} -o build/widgets_label.o -c src/widgets/label.c
 
-CORELIB = build/canvas.o build/drawing_context.o build/font.o build/gui.o build/hashmap.o build/shapes.o build/string_builder.o build/string_hashmap.o build/colors.o build/math_utils.o build/vectors.o build/curves.o build/matrices.o
+CORELIB = build/canvas.o build/drawing_context.o build/font.o build/gui.o build/hashmap.o build/shapes.o build/string_builder.o build/string_hashmap.o build/colors.o build/math_utils.o build/vectors.o build/curves.o build/matrices.o build/mesh.o build/transform.o build/cgltf.o build/stb_image.o build/glutils.o
 WIDGETS = build/widgets_panel.o build/widgets_label.o
 
-libs/liblxgui.so: $(CORELIB) $(WIDGETS)
+libs/liblxgpl.so: $(CORELIB) $(WIDGETS)
 	mkdir -p libs
-	${CC} -fPIC -shared -o libs/liblxgui.so $(CORELIB) $(WIDGETS)                                                                           
+	${CC} -fPIC -shared -o libs/liblxgpl.so $(CORELIB) $(WIDGETS)                                                                           
 
-libs/liblxgui.a: $(CORELIB) $(WIDGETS)
+libs/liblxgpl.a: $(CORELIB) $(WIDGETS)
 	mkdir -p libs
-	${AR} rcs libs/liblxgui.a $(CORELIB) $(WIDGETS)
+	${AR} rcs libs/liblxgpl.a $(CORELIB) $(WIDGETS)
+
+install: libs/liblxgpl.a libs/liblxgpl.so
+	cp libs/liblxgpl.a ${INSTALL_PREFIX}/lib/liblxgpl.a
+	cp libs/liblxgpl.so ${INSTALL_PREFIX}/lib/liblxgpl.so
+	mkdir -p ${INSTALL_PREFIX}/include/lxgpl
+	cp src/*.h ${INSTALL_PREFIX}/include/lxgpl
+
+uninstall:
+	rm -f ${INSTALL_PREFIX}/lib/liblxgpl.*
+	rm -r ${INSTALL_PREFIX}/include/lxgpl
 
 build/examples_test.o: examples/test.c
 	${CC} ${CFLAGS} -o build/examples_test.o -c examples/test.c
@@ -72,7 +95,7 @@ build/examples_test.o: examples/test.c
 build/sdl_test.o: examples/sdl.c
 	${CC} ${CFLAGS} -o build/sdl_test.o -c examples/sdl.c
 
-build/test: libs/liblxgui.a build/examples_test.o
-	${CC} ${CFLAGS} -O build/examples_test.o -L${PWD}/libs -l:liblxgui.a -o build/test
-build/sdl_test: libs/liblxgui.a build/sdl_test.o
-	${CC} ${CFLAGS} -lSDL3 -O build/sdl_test.o -L${PWD}/libs -l:liblxgui.a -o build/sdl_test
+build/test: libs/liblxgpl.a build/examples_test.o
+	${CC} ${CFLAGS} -O build/examples_test.o -L${PWD}/libs -l:liblxgpl.a -o build/test
+build/sdl_test: libs/liblxgpl.a build/sdl_test.o
+	${CC} ${CFLAGS} -lSDL3 -O build/sdl_test.o -L${PWD}/libs -l:liblxgpl.a -o build/sdl_test

@@ -508,3 +508,95 @@ Mat4F mat4f_inverse(Mat4F mat) {
    
    return cofactors;
 }
+
+Mat4F mat4f_rotate_x(float degrees) {
+   float radians = (degrees / 90.f) * M_PI;
+   float c = cosf(radians);
+   float s = sinf(radians);
+   Mat4F mat = {
+      {1, 0, 0, 0},
+      {0, c,-s, 0},
+      {0, s, c, 0},
+      {0, 0, 0, 1}
+   };
+   return mat;
+}
+
+Mat4F mat4f_rotate_y(float degrees) {
+   float radians = (degrees / 90.f) * M_PI;
+   float c = cosf(radians);
+   float s = sinf(radians);
+   Mat4F mat = {
+      {c, 0,-s, 0},
+      {0, 1, 0, 0},
+      {s, 0, c, 0},
+      {0, 0, 0, 1}
+   };
+   return mat;
+}
+
+Mat4F mat4f_rotate_z(float degrees) {
+   float radians = (degrees / 90.f) * M_PI;
+   float c = cosf(radians);
+   float s = sinf(radians);
+   Mat4F mat = {
+      {c,-s, 0, 0},
+      {s, c, 0, 0},
+      {0, 0, 1, 0},
+      {0, 0, 0, 1}
+   };
+   return mat;
+}
+
+Mat4F mat4f_scale(float x, float y, float z) {
+   Mat4F mat = {
+      {x, 0, 0, 0},
+      {0, y, 0, 0},
+      {0, 0, z, 0},
+      {0, 0, 0, 1}
+   };
+   return mat;
+}
+
+Mat4F mat4f_translate(float x, float y, float z) {
+   Mat4F mat = {
+      {1, 0, 0, x},
+      {0, 1, 0, y},
+      {0, 0, 1, z},
+      {0, 0, 0, 1}
+   };
+   return mat;
+}
+
+Mat4F mat4f_look(Vec3F cameraPosition, Vec3F cameraTarget, Vec3F cameraUp) {
+   Vec3F zAxis = vec3f_normalize(vec3f_sub(cameraPosition, cameraTarget));
+   Vec3F xAxis = vec3f_normalize(vec3f_cross(cameraUp, zAxis));
+   Vec3F yAxis = vec3f_cross(zAxis, xAxis);
+
+   Mat4F mat = {
+      {xAxis.x, yAxis.x, zAxis.x, 0},
+      {xAxis.y, yAxis.y, zAxis.y, 0},
+      {xAxis.z, yAxis.z, zAxis.z, 0},
+      {
+         -vec3f_dot(xAxis, cameraPosition),
+         -vec3f_dot(yAxis, cameraPosition),
+         -vec3f_dot(zAxis, cameraPosition),
+      1}
+   };
+
+   return mat;
+}
+
+Mat4F mat4f_perspective(float fovDegrees, float aspectRatio, float near, float far) {
+   float yScale = 1.f / tanf(fovDegrees / 2.f);
+   float xScale = yScale / aspectRatio;
+   
+   float range = far == INFINITY ? -1 : far / (near - far);
+   Mat4F mat = {
+      {xScale, 0, 0,       0},
+      {0, yScale, 0,       0},
+      {0, 0, -range,      -1},
+      {0, 0, near * range, 0}
+   };
+   return mat;
+}

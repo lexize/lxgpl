@@ -234,4 +234,22 @@ Vec2D vec2d_perpendicular(Vec2D vec);
 double vec2d_triangle_area(Vec2D a, Vec2D b, Vec2D c);
 double vec2d_length(Vec2D a);
 bool vec2d_eq(Vec2D a, Vec2D b);
+
+float vec3f_length(Vec3F a);
+float vec4f_length(Vec4F a);
+
+float vec3f_dot(Vec3F a, Vec3F b);
+float vec4f_dot(Vec4F a, Vec4F b);
+
+Vec2F vec2f_normalize(Vec2F vec);
+Vec3F vec3f_normalize(Vec3F vec);
+Vec4F vec4f_normalize(Vec4F vec);
+
+Vec3F vec3f_cross(Vec3F a, Vec3F b);
+
+Vec3F vec2f_aug(Vec2F vec, float num);
+Vec4F vec3f_aug(Vec3F vec, float num);
+
+Vec2F vec3f_deaug(Vec3F vec);
+Vec3F vec4f_deaug(Vec4F vec);
 #endif

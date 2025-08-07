@@ -403,7 +403,7 @@ float vec2f_triangle_area(Vec2F a, Vec2F b, Vec2F c) {
 }
 
 float vec2f_length(Vec2F a) {
-   return sqrtf(powf(a.x, 2.f) + powf(a.y, 2.f));
+   return sqrtf((a.x * a.x) + (a.y * a.y));
 }
 
 bool vec2f_eq(Vec2F a, Vec2F b) {
@@ -426,9 +426,61 @@ double vec2d_triangle_area(Vec2D a, Vec2D b, Vec2D c) {
 }
 
 double vec2d_length(Vec2D a) {
-   return sqrt(pow(a.x, 2.) + pow(a.y, 2.));
+   return sqrt((a.x * a.x) + (a.y * a.y));
 }
 
 bool vec2d_eq(Vec2D a, Vec2D b) {
    return vec2_eq(a, b);
+}
+
+float vec3f_length(Vec3F a) {
+   return sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
+}
+
+float vec4f_length(Vec4F a) {
+   return sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.z * a.z));
+}
+
+float vec3f_dot(Vec3F a, Vec3F b) {
+   return (a.x * b.x) + (a.y + b.y) + (a.z * b.z);
+}
+
+float vec4f_dot(Vec4F a, Vec4F b) {
+   return (a.x * b.x) + (a.y + b.y) + (a.z * b.z) + (a.w * b.w);
+}
+
+Vec2F vec2f_normalize(Vec2F vec) {
+   return vec2f_div(vec, vec2fn(vec2f_length(vec)));
+}
+
+Vec3F vec3f_normalize(Vec3F vec) {
+   return vec3f_div(vec, vec3fn(vec3f_length(vec)));
+}
+
+Vec4F vec4f_normalize(Vec4F vec) {
+   return vec4f_div(vec, vec4fn(vec4f_length(vec)));
+}
+
+Vec3F vec3f_cross(Vec3F a, Vec3F b) {
+   return vec3f(
+      (a.y * b.z) - (a.z * b.y),
+      (a.z * b.x) - (a.x * b.z),
+      (a.x * b.y) - (a.y * b.z)
+   );
+}
+
+Vec3F vec2f_aug(Vec2F vec, float num) {
+   return vec3f(vec.x, vec.y, num);
+}
+
+Vec4F vec3f_aug(Vec3F vec, float num) {
+   return vec4f(vec.x, vec.y, vec.z, num);
+}
+
+Vec2F vec3f_deaug(Vec3F vec) {
+   return vec2f(vec.x, vec.y);
+}
+
+Vec3F vec4f_deaug(Vec4F vec) {
+   return vec3f(vec.x, vec.y, vec.z);
 }

@@ -67,23 +67,17 @@ void lxg_draw_line(LXGDrawCtx* ctx, int x1, int y1, int x2, int y2, int color) {
    if (xDiff == 0) lxg_draw_rectangle(ctx, x1, y1, x1 + 1, y2, color);
    else if (yDiff == 0) lxg_draw_rectangle(ctx, x1, y1, x2, y1 + 1, color);
    else {
-      int steps = int_min(width, height);
-      int xStep = xDiff / steps;
-      int yStep = yDiff / steps;
-      int cX = x1;
-      int cY = y1;
+      float steps = int_min(width, height);
+      float xStep = xDiff / steps;
+      float yStep = yDiff / steps;
+      float cX = x1;
+      float cY = y1;
       int lastStep = steps - 1;
       for (int step = 0; step < steps; step ++) {
-         int nX;
-         int nY;
-         if (step == lastStep) {
-            nX = x2;
-            nY = y2;
-         }
-         else {
-            nX = cX + xStep;
-            nY = cY + yStep;
-         }
+         float nX;
+         float nY;
+         nX = cX + xStep;
+         nY = cY + yStep;
          lxg_draw_rectangle(ctx, cX, cY, nX, nY, color);
          cX = nX;
          cY = nY;
